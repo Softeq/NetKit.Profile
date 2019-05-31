@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  softeq.netkit.profile.web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_HTTPS_PORT=5001
+    ports:
+      - "5001:80"

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.0.1" />
+    <PackageReference Include="Ensure.That" Version="8.1.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Softeq.CloudStorage.Extension" Version="1.0.1" />
+    <PackageReference Include="Softeq.HttpClient.Extension" Version="1.0.3-alpha" />
+    <PackageReference Include="Softeq.QueryUtils" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Softeq.NetKit.Profile.Domain\Softeq.NetKit.Profile.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
