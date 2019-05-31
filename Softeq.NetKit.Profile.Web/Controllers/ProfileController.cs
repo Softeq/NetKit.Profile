@@ -219,7 +219,7 @@ namespace Softeq.NetKit.Profile.Web.Controllers
         [HttpDelete]
         [Authorize(Roles = "Admin")]
         [Route("/api/profile/{profileId:guid}/photo")]
-        public async Task<IActionResult> DeleteOtherUserPhoto(Guid profileId)
+        public async Task<IActionResult> DeleteOtherUserPhotoAsync(Guid profileId)
         {
             await _profileService.DeleteOtherUserPhotoAsync(new ProfileRequest(profileId));
             return Ok();
