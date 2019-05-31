@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  softeq.netkit.profile.web:
+    image: ${DOCKER_REGISTRY}softeqnetkitprofileweb
+    build:
+      context: .
+      dockerfile: Softeq.NetKit.Profile.Web/Dockerfile
