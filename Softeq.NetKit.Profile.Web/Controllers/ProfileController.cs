@@ -51,9 +51,9 @@ namespace Softeq.NetKit.Profile.Web.Controllers
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(PagedResults<ProfileResponse>), 200)]
         [Route("/api/profiles")]
-        public IActionResult GetProfiles([FromBody] GetProfilesQuery query)
+        public async Task<IActionResult> GetProfilesAsync([FromBody] GetProfilesQuery query)
         {
-            var res = _profileService.GetProfiles(query);
+            var res = await _profileService.GetProfilesAsync(query);
             return Ok(res);
         }
 
@@ -173,7 +173,7 @@ namespace Softeq.NetKit.Profile.Web.Controllers
         [ProducesResponseType(typeof(void), 200)]
         [HttpPut]
         [Route("photo")]
-        public async Task<IActionResult> UploadPhoto([FromBody] UpdateUserPhotoRequest model)
+        public async Task<IActionResult> UploadPhotoAsync([FromBody] UpdateUserPhotoRequest model)
         {
             model.UserId = GetClaimValue(JwtClaimTypes.Subject);
             await _profileService.UpdateUserPhotoAsync(model);
@@ -190,7 +190,7 @@ namespace Softeq.NetKit.Profile.Web.Controllers
         [HttpPut]
         [Authorize(Roles = "Admin")]
         [Route("/api/profile/{profileId:guid}/photo")]
-        public async Task<IActionResult> UploadOtherProfilePhoto(Guid profileId, [FromBody] UpdateOtherUserPhotoRequest model)
+        public async Task<IActionResult> UploadOtherProfilePhotoAsync(Guid profileId, [FromBody] UpdateOtherUserPhotoRequest model)
         {
             model.RequestedProfileId = profileId;
             await _profileService.UpdateOtherUserPhotoAsync(model);
@@ -204,7 +204,7 @@ namespace Softeq.NetKit.Profile.Web.Controllers
         [ProducesResponseType(typeof(void), 200)]
         [HttpDelete]
         [Route("photo")]
-        public async Task<IActionResult> DeleteUserPhoto()
+        public async Task<IActionResult> DeleteUserPhotoAsync()
         {
             var userId = GetClaimValue(JwtClaimTypes.Subject);
             await _profileService.DeleteUserPhotoAsync(new UserRequest(userId));

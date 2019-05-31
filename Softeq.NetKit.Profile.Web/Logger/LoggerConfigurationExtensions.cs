@@ -23,7 +23,7 @@ namespace Softeq.NetKit.Profile.Web.Logger
 
         private static void SetupSerilog(WebHostBuilderContext hostingContext, IServiceCollection serviceCollection)
         {
-            var applicationName = hostingContext.Configuration["Serilog:ApplicationName"];
+            var applicationName = hostingContext.Configuration[ConfigurationSettings.SerilogApplicationName];
             var environment = hostingContext.HostingEnvironment.EnvironmentName;
             var applicationSlotName = $"{applicationName}:{environment}";
 
@@ -36,7 +36,7 @@ namespace Softeq.NetKit.Profile.Web.Logger
                 hostingContext.HostingEnvironment.IsStaging() ||
                 hostingContext.HostingEnvironment.IsDevelopment())
             {
-                var instrumentationKey = hostingContext.Configuration["ApplicationInsights:InstrumentationKey"];
+                var instrumentationKey = hostingContext.Configuration[ConfigurationSettings.ApplicationInsightsInstrumentationKey];
                 var telemetryClient = new TelemetryClient { InstrumentationKey = instrumentationKey };
                 loggerConfiguration.WriteTo.ApplicationInsightsEvents(telemetryClient, logEventToTelemetryConverter: LogEventsToTelemetryConverter);
 
@@ -47,12 +47,12 @@ namespace Softeq.NetKit.Profile.Web.Logger
                 loggerConfiguration.WriteTo.Debug(outputTemplate: template);
             }
 
-            bool.TryParse(hostingContext.Configuration["Serilog:EnableLocalFileSink"], out var localFileSinkEnabled);
+            bool.TryParse(hostingContext.Configuration[ConfigurationSettings.SerilogEnableLocalFileSink], out var localFileSinkEnabled);
             if (localFileSinkEnabled)
             {
                 loggerConfiguration.WriteTo.RollingFile("logs/log-{Date}.txt",
                                                         outputTemplate: template,
-                                                        fileSizeLimitBytes: int.Parse(hostingContext.Configuration["Serilog:FileSizeLimitMBytes"]) * 1024 * 1024);
+                                                        fileSizeLimitBytes: int.Parse(hostingContext.Configuration[ConfigurationSettings.SerilogFileSizeLimitMBytes]) * 1024 * 1024);
             }
 
             var logger = loggerConfiguration.CreateLogger();

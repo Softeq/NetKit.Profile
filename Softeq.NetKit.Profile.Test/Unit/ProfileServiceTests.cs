@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using Moq;
 using Softeq.NetKit.Profile.Domain.Models.Profile;
@@ -834,7 +835,7 @@ namespace Softeq.NetKit.Profile.Test.Unit
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void ShouldGetProfiles()
+        public async Task ShouldGetProfiles()
         {
             // Arrange
             var userProfile1 = new UserProfile
@@ -890,12 +891,14 @@ namespace Softeq.NetKit.Profile.Test.Unit
                 userProfile3
             };
 
-            _unitOfWorkMock.Setup(x => x.UserProfileRepository.GetAll())
-                .Returns(userProfiles.AsQueryable())
-                .Verifiable();
+            var mock = userProfiles.AsQueryable().BuildMock();
 
+            _unitOfWorkMock.Setup(x => x.UserProfileRepository.GetAll())
+                .Returns(mock.Object)
+                .Verifiable();
+            
             // Act
-            var result = _profileService.GetProfiles(getProfilesRequest);
+            var result = await _profileService.GetProfilesAsync(getProfilesRequest);
 
             // Assert
             Assert.True(result.PageNumber == 1);

@@ -16,7 +16,7 @@ namespace Softeq.NetKit.Profile.Test.Dependency
                 {
                     var context = x.Resolve<IComponentContext>();
                     var config = context.Resolve<IConfigurationRoot>();
-                    var storage = new AzureCloudStorage(config["AzureStorage:ConnectionString"]);
+                    var storage = new AzureCloudStorage(config[ConfigurationSettings.AzureStorageConnectionString]);
                     return storage;
                 })
                 .As<IContentStorage>();

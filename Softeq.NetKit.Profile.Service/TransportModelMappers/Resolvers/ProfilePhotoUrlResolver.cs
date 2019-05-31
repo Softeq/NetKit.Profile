@@ -29,6 +29,7 @@ namespace Softeq.NetKit.ProfileService.TransportModelMappers.Resolvers
                 return null;
             }
 
+            //TODO try to do async
             var blobSasUri = _contentStorage.GetBlobSasUriAsync(_configuration.UserPhotoContainerName, sourceMember, _configuration.AccessTokenExpiration).GetAwaiter().GetResult();
             return blobSasUri;
         }

@@ -39,9 +39,9 @@ namespace Softeq.NetKit.Profile.Test
         }
 
         [Fact]
-        public void ShouldGetAllProfiles()
+        public async Task ShouldGetAllProfiles()
         {
-            var patients = _profileService.GetProfiles(new GetProfilesQuery
+            var patients = await _profileService.GetProfilesAsync(new GetProfilesQuery
             {
                 Page = 1,
                 PageSize = 10,

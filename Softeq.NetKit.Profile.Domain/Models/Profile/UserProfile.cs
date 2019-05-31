@@ -2,8 +2,6 @@
 // http://www.softeq.com
 
 using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Softeq.NetKit.Profile.Domain.Infrastructure;
 
 namespace Softeq.NetKit.Profile.Domain.Models.Profile
@@ -22,7 +20,6 @@ namespace Softeq.NetKit.Profile.Domain.Models.Profile
 
         public double? Longitude { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
         public Gender Gender { get; set; }
 
         public DateTime? DateOfBirth { get; set; }

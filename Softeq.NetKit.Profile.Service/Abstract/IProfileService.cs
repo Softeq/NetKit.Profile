@@ -24,7 +24,7 @@ namespace Softeq.NetKit.ProfileService.Abstract
         Task DeleteOtherUserPhotoAsync(ProfileRequest request);
         Task UpdateUserPhotoAsync(UpdateUserPhotoRequest request);
         Task UpdateOtherUserPhotoAsync(UpdateOtherUserPhotoRequest request);
-        PagedResults<ProfileResponse> GetProfiles(GetProfilesQuery request);
+        Task<PagedResults<ProfileResponse>> GetProfilesAsync(GetProfilesQuery query);
         Task<bool> CheckIfProfileExistsAsync(string email);
     }
 }

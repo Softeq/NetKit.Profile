@@ -252,7 +252,7 @@ namespace Softeq.NetKit.ProfileService.Services
             await UnitOfWork.SaveChangesAsync();
         }
 
-        public PagedResults<ProfileResponse> GetProfiles(GetProfilesQuery query)
+        public async Task<PagedResults<ProfileResponse>> GetProfilesAsync(GetProfilesQuery query)
         {
             var filters = query.CreateFilters();
             var ordering = query.CreateOrdering();
@@ -265,7 +265,7 @@ namespace Softeq.NetKit.ProfileService.Services
 
             var filteredProfiles = querySpecification.ApplyFiltering(profiles);
 
-            return PageUtil.CreatePagedResults(filteredProfiles, query.Page, query.PageSize, Mapper.Map<UserProfile, ProfileResponse>);
+            return await PageUtil.CreatePagedResultsAsync(filteredProfiles, query.Page, query.PageSize, Mapper.Map<UserProfile, ProfileResponse>);
         }
 
         public async Task<bool> CheckIfProfileExistsAsync(string email)

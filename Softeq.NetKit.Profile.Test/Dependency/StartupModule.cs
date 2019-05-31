@@ -35,13 +35,13 @@ namespace Softeq.NetKit.Profile.Test.Dependency
             builder.Register(x =>
             {
                 var cfg = new CloudStorageConfiguration(
-                    configurationRoot["AzureStorage:ContentStorageHost"],
-                    configurationRoot["AzureStorage:UserPhotoContainerName"],
-                    Convert.ToInt32(configurationRoot["AzureStorage:UserPhotoSize"]),
-                    configurationRoot["AzureStorage:TempContainerName"],
-                    Convert.ToInt32(configurationRoot["AzureStorage:ContainerAccessToken:TimeToLive"]));
+                    configurationRoot[ConfigurationSettings.AzureStorageContentStorageHost],
+                    configurationRoot[ConfigurationSettings.AzureStorageUserPhotoContainerName],
+                    Convert.ToInt32(configurationRoot[ConfigurationSettings.AzureStorageUserPhotoSize]),
+                    configurationRoot[ConfigurationSettings.AzureStorageTempContainerName],
+                    Convert.ToInt32(configurationRoot[ConfigurationSettings.AzureStorageContainerAccessTokenTimeToLive]));
                 return cfg;
-            });
+            }).AsSelf().SingleInstance();
         }
     }
 }
