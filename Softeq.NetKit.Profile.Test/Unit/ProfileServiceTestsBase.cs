@@ -6,6 +6,7 @@ using Moq;
 using Softeq.CloudStorage.Extension;
 using Softeq.NetKit.Profile.Domain.Infrastructure;
 using Softeq.NetKit.Profile.Domain.Models.Configuration;
+using Softeq.NetKit.Profile.Test.Dependency;
 using Softeq.NetKit.ProfileService.Abstract;
 
 namespace Softeq.NetKit.Profile.Test.Unit
@@ -23,7 +24,14 @@ namespace Softeq.NetKit.Profile.Test.Unit
         protected ProfileServiceTestsBase()
         {
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterAssemblyModules(typeof(ProfileServiceTestsBase).Assembly);
+
+            containerBuilder.RegisterModule(new AutomapperModule());
+            containerBuilder.RegisterModule(new DbModule());
+            containerBuilder.RegisterModule(new StartupModule());
+            containerBuilder.RegisterModule(new ValidationModule());
+
+            containerBuilder.Register(x => _contentStorageMock.Object).As<IContentStorage>();
+
             LifetimeScope = containerBuilder.Build();
 
             var serviceProvider = LifetimeScope.Resolve<IServiceProvider>();
