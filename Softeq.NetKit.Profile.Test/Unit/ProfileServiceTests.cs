@@ -893,6 +893,9 @@ namespace Softeq.NetKit.Profile.Test.Unit
 
             var mock = userProfiles.AsQueryable().BuildMock();
 
+            _contentStorageMock.Setup(x => x.GetBlobSasUriAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(Task.FromResult(string.Empty));
+
             _unitOfWorkMock.Setup(x => x.UserProfileRepository.GetAll())
                 .Returns(mock.Object)
                 .Verifiable();
